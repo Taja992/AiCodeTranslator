@@ -1,6 +1,6 @@
 ## Setup
 1. Clone this repository
-2. Create a virtual environment: `python -m venv venv`
+2. Create a virtual environment: `python -m venv base`
 3. Activate the virtual environment:
    - Windows: `venv\Scripts\activate`
    - macOS/Linux: `source venv/bin/activate`
