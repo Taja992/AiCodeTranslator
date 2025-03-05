@@ -1,5 +1,4 @@
-# Create .gitignore file
-echo "# Virtual Environment
+# Virtual Environment
 base/
 venv/
 env/
@@ -36,4 +35,4 @@ wheels/
 .idea/
 .vscode/
 *.swp
-*.swo" > .gitignore
+*.swo
