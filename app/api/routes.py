@@ -1,8 +1,11 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+from app.llm import CodeLanguageDetectionTool
 
 
 router = APIRouter(prefix="/api", tags=["code"])
+
+language_detector = CodeLanguageDetectionTool()
 
 class CodeRequest(BaseModel):
     code: str
@@ -29,9 +32,17 @@ class StylePreferences(BaseModel):
 # Define API endpoints
 @router.post("/explain_code", response_model=ExplanationResponse)
 async def explain_code(request: CodeRequest):
-    # Placeholder implementation
-    return {"explanation": f"Explanation for the provided {request.language} code", 
-            "language": request.language or "detected_language"}
+    # If language is not provided, detect it
+    detected_language = request.language
+    if not detected_language:
+        detected_language = language_detector._run(request.code)
+
+    # Placeholder implementation - ADD LangChain Call here
+
+    return {
+        "explanation": f"Explanation for the provided {detected_language} code", 
+        "language": detected_language
+    }
 
 @router.post("/generate_code", response_model=GenerationResponse)
 async def generate_code(description: str, language: str):
