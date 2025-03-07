@@ -5,4 +5,4 @@
    - Windows: `base\Scripts\activate`
    - macOS/Linux: `source base/bin/activate`
 4. Install dependencies: `pip install -r requirements.txt`
-5. Run the application: tbd.
+5. Run the application: tbd...
