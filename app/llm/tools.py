@@ -28,6 +28,7 @@ class CodeLanguageDetectionTool(BaseTool):
                 "Swift": "Swift",
                 "Kotlin": "Kotlin"
             }
+            
             return language_map.get(lexer.name, lexer.name)
         except ClassNotFound:
             return "Unknown"
