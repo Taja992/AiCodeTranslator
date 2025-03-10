@@ -1,12 +1,12 @@
 from langchain.tools import BaseTool
 from pygments.lexers import guess_lexer
 from pygments.util import ClassNotFound
-from typing import Optional, Type
+from typing import Optional, Type, ClassVar
 
 
 class CodeLanguageDetectionTool(BaseTool):
-    name = "code_language_detection"
-    description = "Detects the programming language of a given code snippet"
+    name: ClassVar[str] = "code_language_detection"
+    description: ClassVar[str] = "Detects the programming language of a given code snippet"
 
     def _run(self, code_snippet: str) -> str:
         try:
