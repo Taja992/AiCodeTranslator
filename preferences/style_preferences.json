@@ -1,0 +1,6 @@
+{
+  "indentation": "spaces",
+  "indent_size": 4,
+  "max_line_length": 80,
+  "naming_convention": "snake_case"
+}
