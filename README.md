@@ -42,9 +42,9 @@ A powerful tool for generating, translating, and explaining code using LLMs with
    python main.py
    ```
 
-   olThis will automatically open the Flet UI application window on your desktop.
+   This will automatically open the Flet UI application window on your desktop.
 
-7. Open your browser to [http://localhost:8550](http://localhost:8550) to use the application
+7. You can check your connection with ollama here: http://localhost:8000/api/test_llm
 
 ## Usage
 
