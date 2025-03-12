@@ -13,25 +13,31 @@ class CodeLanguageDetectionTool(BaseTool):
             lexer = guess_lexer(code_snippet, stripnl=False, stripall=False)
             # creating a language map of common languages
             language_map = {
-                "Python 3": "Python",
-                "JavaScript": "JavaScript",
-                "TypeScript": "TypeScript",
-                "C++": "C++",
-                "C#": "C#",
-                "Java": "Java",
-                "HTML": "HTML",
-                "CSS": "CSS",
-                "PHP": "PHP",
-                "Ruby": "Ruby",
-                "Go": "Go",
-                "Rust": "Rust",
-                "Swift": "Swift",
-                "Kotlin": "Kotlin"
+                "Python 3": "python",
+                "JavaScript": "javascript",
+                "TypeScript": "typescript",
+                "C++": "cpp",
+                "C#": "csharp",
+                "Java": "java",
+                "HTML": "html",
+                "CSS": "css",
+                "PHP": "php",
+                "Ruby": "ruby",
+                "Go": "go",
+                "Rust": "rust",
+                "Swift": "swift",
+                "Kotlin": "kotlin"
             }
             
-            return language_map.get(lexer.name, lexer.name)
+            # Get the detected language name
+            detected_language = lexer.name
+            
+            # Map to a standardized name if possible, otherwise use as is
+            return language_map.get(detected_language, detected_language.lower())
+            
         except ClassNotFound:
-            return "Unknown"
+            # If we can't detect the language, return a default
+            return "unknown"
         
     async def _arun(self, code_snippet: str) -> str:
         return self._run(code_snippet)
