@@ -9,12 +9,11 @@ class StylePreferences(BaseModel):
     indentation: str = "spaces"
     indent_size: int = 4
     max_line_length: int = 80
-    naming_convention: str = "snake_case"  # Add this if missing
+    naming_convention: str = "snake_case"
 
 class StyleManager:
     """
     Manages user style preferences for code generation and translation.
-    
     Handles loading and saving style preferences to a JSON file.
     """
     def __init__(self):
@@ -45,7 +44,6 @@ class StyleManager:
                 self.preferences = StylePreferences(**data)
                 return self.preferences
         except (json.JSONDecodeError, FileNotFoundError):
-            # If there's an error, return default preferences
             self.preferences = StylePreferences()
             self.save_preferences(self.preferences)
             return self.preferences
@@ -57,9 +55,7 @@ class StyleManager:
         self.preferences = preferences
     
     def get_preferences_dict(self) -> Dict[str, Any]:
-        """
-        Get current style preferences as a dictionary
-        """
+        """Get current style preferences as a dictionary"""
         try:
             prefs = self.load_preferences()
             return {
@@ -69,7 +65,6 @@ class StyleManager:
                 "naming_convention": prefs.naming_convention
             }
         except Exception as e:
-            # Return defaults if loading fails
             return {
                 "indentation": "spaces",
                 "indent_size": 4,

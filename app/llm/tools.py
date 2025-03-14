@@ -11,7 +11,7 @@ class CodeLanguageDetectionTool(BaseTool):
     def _run(self, code_snippet: str) -> str:
         try:
             lexer = guess_lexer(code_snippet, stripnl=False, stripall=False)
-            # creating a language map of common languages
+            # Map Pygments lexer names to standardized language identifiers
             language_map = {
                 "Python 3": "python",
                 "JavaScript": "javascript",
@@ -29,14 +29,10 @@ class CodeLanguageDetectionTool(BaseTool):
                 "Kotlin": "kotlin"
             }
             
-            # Get the detected language name
             detected_language = lexer.name
-            
-            # Map to a standardized name if possible, otherwise use as is
             return language_map.get(detected_language, detected_language.lower())
             
         except ClassNotFound:
-            # If we can't detect the language, return a default
             return "unknown"
         
     async def _arun(self, code_snippet: str) -> str:

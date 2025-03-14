@@ -6,27 +6,34 @@ from typing import Dict
 # Define model configurations for each task
 MODEL_REGISTRY: Dict[ModelTask, OllamaModelConfig] = {
     ModelTask.CODE_GENERATION: OllamaModelConfig(
-        name="codellama:7b-instruct",  # Using CodeLlama for generation tasks
-        temperature=0.4,  # Lower temperature for more precise code generation
+        name="codellama:7b-instruct",
+        temperature=0.2,  # Lower temperature for more consistent output
+        top_p=0.1,       # More focused sampling
+        top_k=40,
+        repeat_penalty=1.2,
         stop=[
-            "```",          # Stop if model tries to end the code block with backticks
-            "</code>",      # Stop if model tries to use HTML code closing tag
-            "```python",    # Stop if model tries to start new code blocks
-            "```javascript", # These prevent the model from generating multiple
-            "```java",      # code blocks or switching languages within
-            "```cpp",       # a single generation
+            "```",
+            "```python",
+            "```javascript",
+            "```java",
+            "```cpp",
+            "# Task:",
+            "# System:",
+            "# Response"
         ],
     ),
     ModelTask.CODE_TRANSLATION: OllamaModelConfig(
-        name="wizardcoder:7b-python",  # Using WizardCoder for translation tasks
-        temperature=0.3,  # Lower temperature for accurate translations
+        name="codellama:7b-instruct",
+        temperature=0.1,  # Slight randomness for better translations
+        top_p=0.2,
+        top_k=40,
+        repeat_penalty=1.1,
         stop=[
-            "```",          # Prevents adding markdown code block endings
-            "</code>",      # Prevents HTML code tag closures
-            "```python",    # These prevent the model from adding examples
-            "```javascript", # in different languages after completing
-            "```java",      # the primary translation task
-            "```cpp",       # Keeps output focused on just the translated code
+            "```",
+            "# Task:",
+            "# System:",
+            "# Requirements:",
+            "Original code"
         ],
     ),
     ModelTask.CODE_EXPLANATION: OllamaModelConfig(
@@ -43,7 +50,6 @@ def get_model_for_task(task: ModelTask) -> Ollama:
     """
     Get the appropriate LLM model for a specific task.
     """
-    # Simple debug print without changing functionality
     print(f"Getting model for task: {task.name}")
     
     if task not in MODEL_REGISTRY:
@@ -52,6 +58,5 @@ def get_model_for_task(task: ModelTask) -> Ollama:
     config = MODEL_REGISTRY[task]
     model = config.create_model()
     
-    # Print just the model name
     print(f"Using model: {config.name}")
     return model
